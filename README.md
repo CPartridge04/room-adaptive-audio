@@ -1,21 +1,37 @@
-# Room-Adaptive Audio
+# Room Adaptive Audio
 
-**Work in progress — by Carl Partridge**
+An experimental audio lab for comparing stereo speaker processing and measuring speakers at a listening position.
 
-An audio engineering project exploring how speaker output can adapt to listener position.
+## Native Mac app — v0.4.0
 
-## Current prototype
+The SwiftUI app in [`prototype-v2-native`](prototype-v2-native) includes:
 
-The first prototype uses two speakers, a Python/Tkinter interface, WAV playback, and position-based channel gains calculated from a simplified inverse-distance model.
+- A room layout with speaker and listener positions.
+- Microphone calibration to match relative speaker level and arrival time.
+- Separate manual gain and delay trims.
+- A Measurements dashboard with a recorded waveform, arrival markers, measured levels, before/after differences, and applied corrections.
+- Recording playback and WAV export.
 
-It includes manual gain controls, channel identification tones, gain smoothing, and offline tests.
+### Setup
 
-This is an initial model-based experiment. Constant perceived loudness in a real room has not been established. Listener tracking, microphone measurements, equalisation, and delay compensation are future work.
+Designed for Logitech Z407 speakers connected through AUX and a Blue Yeti connected through USB. Select the headphone/AUX output and Yeti input in macOS Sound settings. Place the microphone at the listening position, choose omnidirectional mode, and keep hardware volume and microphone gain fixed.
 
-See [prototype setup and technical documentation](prototype-v1/README.md).
+On the **Calibrate** page, choose **Measure speakers → Apply automatic corrections → Verify corrections**. Microphone permission is requested when starting a measurement. The test uses a left–right–left sweep sequence. Results and settings currently last for the app session; export recordings before closing.
 
-## Preserved prototype
+Measurements are relative, not calibrated sound-pressure readings. Timing estimates can be affected by reflections. Physical Yeti/Z407 testing is still pending; automated checks use simulated recordings. Virtual headphones remains an experimental, unmeasured geometric model.
 
-The `prototype-v1` branch and `v0.1.0-prototype` tag preserve the first public prototype. Ongoing project development will appear on `main`.
+### Build
 
-This repository contains selected public milestones from a separate local development repository.
+Requires Apple silicon, macOS 13 or later, and Xcode command-line tools.
+
+```sh
+cd prototype-v2-native
+swift test
+zsh build-app.sh
+```
+
+The app is created in `dist/Audio Lab.app`. Local builds are ad-hoc signed, not notarised for distribution.
+
+## Original Python prototype
+
+The original implementation remains in [`prototype-v1`](prototype-v1). See its README for setup instructions.

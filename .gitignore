@@ -12,3 +12,10 @@ __pycache__/
 .env
 .env.*
 *.log
+
+# Native build products
+.build/
+.swiftpm/
+dist/
+*.app/
+*.zip
